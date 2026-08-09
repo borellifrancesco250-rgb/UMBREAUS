@@ -199,6 +199,58 @@
         stato;
     }
   </script>
+<script src="https://unpkg.com/netlify-identity-widget@1.9.2/build/netlify-identity-widget.js"></script>
 
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  function controllaAdmin(user) {
+
+    if (!user) {
+      document.body.innerHTML = `
+        <div style="background:#0b0b0b;color:white;min-height:100vh;
+        display:flex;align-items:center;justify-content:center;
+        font-family:Arial;text-align:center;padding:30px;">
+          <div>
+            <h1>Accesso richiesto</h1>
+            <p>Devi effettuare l'accesso per entrare nel pannello.</p>
+            <button onclick="netlifyIdentity.open()"
+            style="padding:15px 25px;border:0;border-radius:10px;
+            background:#d4af37;font-weight:bold;font-size:16px;">
+              ACCEDI
+            </button>
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    const ruoli = user.app_metadata && user.app_metadata.roles
+      ? user.app_metadata.roles
+      : [];
+
+    if (!ruoli.includes("admin")) {
+      document.body.innerHTML = `
+        <div style="background:#0b0b0b;color:white;min-height:100vh;
+        display:flex;align-items:center;justify-content:center;
+        font-family:Arial;text-align:center;padding:30px;">
+          <div>
+            <h1>Accesso negato</h1>
+            <p>Questo pannello è riservato all'amministratore.</p>
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  netlifyIdentity.on("init", controllaAdmin);
+
+  netlifyIdentity.on("login", function (user) {
+    controllaAdmin(user);
+  });
+
+  netlifyIdentity.init();
+});
+</script>
 </body>
 </html>
