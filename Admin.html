@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UMBREAUS — Admin</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #0b0b0b;
+      color: white;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #d4af37;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #aaa;
+      margin-bottom: 30px;
+    }
+
+    .card {
+      background: #171717;
+      border: 1px solid #333;
+      border-radius: 16px;
+      padding: 22px;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #ddd;
+      font-weight: bold;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 18px;
+      border-radius: 10px;
+      border: 1px solid #444;
+      background: #0f0f0f;
+      color: white;
+      font-size: 16px;
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      border: 0;
+      border-radius: 10px;
+      background: #d4af37;
+      color: #000;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .preview {
+      margin-top: 25px;
+      padding: 20px;
+      border-radius: 14px;
+      background: #101010;
+      border: 1px solid #333;
+    }
+
+    .preview h2 {
+      margin-top: 0;
+      color: #d4af37;
+    }
+
+    .status {
+      color: #6ee7a8;
+      font-weight: bold;
+    }
+
+    .note {
+      margin-top: 20px;
+      color: #888;
+      font-size: 13px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h1>UMBREAUS</h1>
+    <div class="subtitle">Pannello gestione catalogo</div>
+
+    <div class="card">
+
+      <label for="nome">Nome prodotto</label>
+      <input
+        id="nome"
+        type="text"
+        placeholder="Inserisci il nome"
+      >
+
+      <label for="descrizione">Descrizione</label>
+      <textarea
+        id="descrizione"
+        placeholder="Inserisci una descrizione"
+      ></textarea>
+
+      <label for="immagine">URL immagine</label>
+      <input
+        id="immagine"
+        type="url"
+        placeholder="https://..."
+      >
+
+      <label for="stato">Disponibilità</label>
+      <select id="stato">
+        <option value="Disponibile">Disponibile</option>
+        <option value="Non disponibile">Non disponibile</option>
+      </select>
+
+      <button onclick="aggiornaAnteprima()">
+        AGGIORNA ANTEPRIMA
+      </button>
+
+    </div>
+
+    <div class="preview">
+
+      <h2 id="previewNome">
+        Nome prodotto
+      </h2>
+
+      <p id="previewDescrizione">
+        La descrizione apparirà qui.
+      </p>
+
+      <p>
+        Stato:
+        <span class="status" id="previewStato">
+          Disponibile
+        </span>
+      </p>
+
+    </div>
+
+    <div class="note">
+      Pannello locale di gestione del catalogo.
+    </div>
+
+  </div>
+
+  <script>
+    function aggiornaAnteprima() {
+
+      const nome =
+        document.getElementById("nome").value;
+
+      const descrizione =
+        document.getElementById("descrizione").value;
+
+      const stato =
+        document.getElementById("stato").value;
+
+      document.getElementById("previewNome").textContent =
+        nome || "Nome prodotto";
+
+      document.getElementById("previewDescrizione").textContent =
+        descrizione || "La descrizione apparirà qui.";
+
+      document.getElementById("previewStato").textContent =
+        stato;
+    }
+  </script>
+
+</body>
+</html>
